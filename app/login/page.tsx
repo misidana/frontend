@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import React from "react";
-import LoginForm from "../clientComponents/LoginForm";
+import LoginForm from "../../components/LoginForm";
 
 export const metadata: Metadata = {
   title: "Login - Taruhan Jaya MasterBinary",

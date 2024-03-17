@@ -4,11 +4,12 @@ import QueryProviders from "../QueryProviders";
 import Sidebar from "../../components/Sidebar";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/nextauth";
+import AdminSidebar from "@/components/AdminSidedbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dashboard | Taruhan Jaya MasterBinary",
+  title: "Admin | Taruhan Jaya MasterBinary",
   description: "Dashboard Taruhan Jaya MasterBinary",
 };
 
@@ -23,7 +24,7 @@ export default async function RootLayout({
     <QueryProviders>
       <html lang='en'>
         <body className={inter.className}>
-          <Sidebar session={session}>{children}</Sidebar>
+          <AdminSidebar session={session}>{children}</AdminSidebar>
         </body>
       </html>
     </QueryProviders>
