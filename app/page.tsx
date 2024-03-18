@@ -2,6 +2,8 @@ import About from "@/components/About";
 import Calls from "@/components/Calls";
 import CardsBorder from "@/components/CardsBorder";
 import CardsGradient from "@/components/CardsGradient";
+import Faq from "@/components/Faq";
+import Footer from "@/components/Footer";
 import HowToDo from "@/components/HowToDo";
 import Navbar from "@/components/Navbar";
 import StartBlock from "@/components/StartBlock";
@@ -26,8 +28,10 @@ export default async function Home() {
       <div className='bg-gray-900'>
         <div className='max-w-screen-xl px-4 mx-auto'>
           <HowToDo />
+          <Faq />
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

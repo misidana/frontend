@@ -8,8 +8,8 @@ import authOptions from "@/lib/nextauth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dashboard | Taruhan Jaya MasterBinary",
-  description: "Dashboard Taruhan Jaya MasterBinary",
+  title: "Dashboard | Suruhanjaya Master Binary",
+  description: "Dashboard Suruhanjaya Master Binary",
 };
 
 export default async function RootLayout({
