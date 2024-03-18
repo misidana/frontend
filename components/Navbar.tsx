@@ -12,18 +12,18 @@ const Navbar = () => {
               alt='Landwind Logo'
             />
             <span className='text-xl max-lg:ml-5 font-semibold whitespace-nowrap text-white'>
-              Suruhan Jaya Masterbinary
+              Suruhanjaya Master Binary
             </span>
           </a>
           <div className='lg:flex hidden items-center lg:order-2'>
             <a
-              href='#'
+              href='/login'
               className='text-white ring-4 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 hover:bg-gray-700 focus:outline-none focus:ring-gray-800'
             >
               Log in
             </a>
             <a
-              href='https://themesberg.com/product/tailwind-css/landing-page'
+              href='/register'
               className='text-white hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 bg-blue-600 focus:outline-none focus:ring-blue-800'
             >
               Register
@@ -46,9 +46,9 @@ const Navbar = () => {
                 xmlns='http://www.w3.org/2000/svg'
               >
                 <path
-                  fill-rule='evenodd'
+                  fillRule='evenodd'
                   d='M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z'
-                  clip-rule='evenodd'
+                  clipRule='evenodd'
                 ></path>
               </svg>
               <svg
@@ -58,9 +58,9 @@ const Navbar = () => {
                 xmlns='http://www.w3.org/2000/svg'
               >
                 <path
-                  fill-rule='evenodd'
+                  fillRule='evenodd'
                   d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-                  clip-rule='evenodd'
+                  clipRule='evenodd'
                 ></path>
               </svg>
             </button>

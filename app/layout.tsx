@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Taruhan Jaya MasterBinary",
   description:
-    "Welcome To Taruhan Jaya MasterBinary. Taruhan Jaya MasterBinary is an investment or stock trading company that was founded in 2009 and is present in almost all countries in the world.",
+    "Welcome To Suruhanjaya Master Binary. Suruhanjaya MasterBinary is an investment or stock trading company that was founded in 2009 and is present in almost all countries in the world.",
 };
 
 export default function RootLayout({
