@@ -2,7 +2,7 @@ import React from "react";
 
 const HowToDo = () => {
   return (
-    <div className='gap-4 flex flex-col text-white text-center py-20'>
+    <div id='how' className='gap-4 flex flex-col text-white text-center py-20'>
       <span className='text-lg text-blue-500'>HOW TO DO</span>
       <h2 className='font-bold text-4xl lg:text-5xl'>Our Working Process</h2>
       <p>

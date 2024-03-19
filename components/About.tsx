@@ -4,7 +4,7 @@ import { FaHeadphones, FaRocket } from "react-icons/fa6";
 const About = () => {
   return (
     <>
-      <section className='overflow-hidden py-10 lg:py-16'>
+      <section id='about' className='overflow-hidden py-10 lg:py-16'>
         <div className='grid grid-cols-1 lg:grid-cols-2 items-center'>
           <div className='w-full'>
             <img

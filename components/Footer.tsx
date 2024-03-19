@@ -8,7 +8,7 @@ const Footer = () => {
           <img src='/logo.png' alt='logo' className='w-[100px]' />
           <h2 className='text-2xl font-bold'>Suruhanjaya Master Binary</h2>
         </div>
-        <p>Copyright © 2022 Mastertrade-Binary.Com, All Rights Reserved.</p>
+        <p>Copyright © 2024 Suruhanjaya Master Binary, All Rights Reserved.</p>
       </div>
     </footer>
   );

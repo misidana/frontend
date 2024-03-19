@@ -1,4 +1,5 @@
 import About from "@/components/About";
+import BackToTop from "@/components/BackToTop";
 import Calls from "@/components/Calls";
 import CardsBorder from "@/components/CardsBorder";
 import CardsGradient from "@/components/CardsGradient";
@@ -32,6 +33,7 @@ export default async function Home() {
         </div>
       </div>
       <Footer />
+      <BackToTop />
     </main>
   );
 }

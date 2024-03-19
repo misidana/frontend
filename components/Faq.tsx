@@ -3,7 +3,7 @@ import DropdownFaq from "./DropdownFaq";
 
 const Faq = () => {
   return (
-    <div className='gap-4 flex flex-col text-white text-center py-16'>
+    <div id='faq' className='gap-4 flex flex-col text-white text-center py-16'>
       <span className='text-lg text-blue-500'>FAQ</span>
       <h2 className='font-bold text-4xl lg:text-5xl'>
         Frequently Asked Questions

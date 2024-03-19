@@ -80,7 +80,7 @@ function DashboardCard({
   };
 
   return (
-    <div className='flex flex-col bg-[#1f1f1f] overflow-hidden text-white shadow-lg rounded-lg border'>
+    <div className='flex flex-col bg-[#1f1f1f] overflow-hidden text-white rounded-lg shadow-lg shadow-[#A1A1A1]/15'>
       <div className='px-5 pt-5'>
         <header className='flex justify-between items-start mb-2'>
           <div className='text-4xl'>{icon}</div>
@@ -88,7 +88,7 @@ function DashboardCard({
         <h2 className='text-lg font-semibold mb-2'>{title}</h2>
         <div className='text-xs font-semibold uppercase mb-1'>{desc}</div>
         <div className='flex items-start'>
-          <div className='text-3xl font-bold mr-2'>
+          <div className='text-3xl text-yellow-400 font-bold mr-2'>
             {total}{" "}
             {title === "Refferal" ? (
               <span className='text-base'>members</span>

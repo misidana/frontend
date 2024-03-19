@@ -4,7 +4,10 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 
 const Welcome = () => {
   return (
-    <div className='flex flex-col gap-4 text-center py-10 lg:py-16 text-white'>
+    <div
+      id='why'
+      className='flex flex-col gap-4 text-center py-10 lg:py-16 text-white'
+    >
       <h1 className='text-4xl lg:text-4xl font-bold'>
         Why choose Suruhanjaya Master Binary
       </h1>

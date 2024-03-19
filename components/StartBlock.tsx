@@ -4,7 +4,7 @@ import React from "react";
 
 const StartBlock = () => {
   return (
-    <div className='mt-14 text-white py-20'>
+    <div id='home' className='mt-14 text-white py-20'>
       <div className='grid grid-cols-1 max-lg:text-center lg:grid-cols-2 items-center '>
         <div>
           <h1 className='text-3xl lg:text-5xl font-bold'>Get Your Profit.</h1>
