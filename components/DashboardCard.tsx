@@ -80,7 +80,8 @@ function DashboardCard({
   };
 
   return (
-    <div className='flex flex-col bg-[#1f1f1f] overflow-hidden text-white rounded-lg shadow-lg shadow-[#A1A1A1]/15'>
+    <div className='flex flex-col relative bg-[#1f1f1f] overflow-hidden text-white rounded-lg shadow-lg shadow-[#A1A1A1]/15'>
+      <div className='absolute bg-black top-0 left-0 w-full h-full opacity-0'></div>
       <div className='px-5 pt-5'>
         <header className='flex justify-between items-start mb-2'>
           <div className='text-4xl'>{icon}</div>

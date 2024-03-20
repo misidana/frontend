@@ -65,7 +65,7 @@ const Sidebar = ({
             </li>
             <Dropdown
               Menus={Menus}
-              Title='Balance'
+              Title='Wallet'
               onPress={() => setShowNav(false)}
             />
             <li>
@@ -147,6 +147,6 @@ const Sidebar = ({
 
 export default Sidebar;
 const Menus = [
-  { name: "Deposit", url: "/balance" },
-  { name: "Withdraw", url: "/" },
+  { name: "Add Balance", url: "/dashboard/balance/add" },
+  { name: "Withdraw", url: "/dashboard/balance/withdraw" },
 ];

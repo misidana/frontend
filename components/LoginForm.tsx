@@ -19,7 +19,7 @@ const LoginForm = () => {
       callbackUrl: "/dashboard",
     });
 
-    if (res?.status) {
+    if (res?.status === 200) {
       router.push("/dashboard");
     }
   };
@@ -33,7 +33,7 @@ const LoginForm = () => {
           alt='logo'
         />
         <h1 className='text-xl font-bold text-white md:text-2xl'>
-          Suruhan Jaya MasterBinary
+          Suruhanjaya Master Binary
         </h1>
       </div>
       <div className='p-6 space-y-4 sm:p-8'>
