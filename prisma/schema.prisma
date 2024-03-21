@@ -26,3 +26,34 @@ model Users {
   referrer    String?
   createdAt   DateTime @default(now())
 }
+
+model Deposit {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  username  String
+  amount    Int
+  image     String
+  status    Boolean? @default(false)
+  title     String   @default("Buy Balance")
+  createdAt DateTime @default(now())
+}
+
+model Withdraw {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  username       String
+  amount         Int
+  country        String
+  bankName       String
+  rekeningName   String
+  rekeningNumber String
+  status         Boolean? @default(false)
+  title          String   @default("Withdraw")
+  createdAt      DateTime @default(now())
+}
+
+model PaymentsMethod {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  rekeningName String
+  bankName     String
+  noRekening   String
+  image        String
+}

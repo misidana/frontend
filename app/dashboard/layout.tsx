@@ -4,6 +4,9 @@ import QueryProviders from "../QueryProviders";
 import Sidebar from "../../components/Sidebar";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/nextauth";
+import prisma from "@/lib/prisma";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +21,18 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+  const user = await prisma.users.findUnique({
+    where: {
+      username: session?.user?.name || "",
+    },
+  });
 
   return (
     <html lang='en'>
       <QueryProviders>
         <body className={inter.className}>
-          <Sidebar session={session}>{children}</Sidebar>
+          <ToastContainer />
+          <Sidebar session={user}>{children}</Sidebar>
         </body>
       </QueryProviders>
     </html>

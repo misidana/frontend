@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/dist/client/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { COLORS } from "./Colors";
 import Dropdown from "./Dropdown";
 
@@ -11,6 +11,7 @@ import { IoIosNotifications } from "react-icons/io";
 import { MdNotificationsActive } from "react-icons/md";
 import { signOut } from "next-auth/react";
 import { CgProfile } from "react-icons/cg";
+import { useUserStore } from "@/lib/zustand";
 
 const Sidebar = ({
   children,
@@ -21,6 +22,11 @@ const Sidebar = ({
 }) => {
   const [showNav, setShowNav] = useState(false);
   const pathName = usePathname();
+
+  const { setUser } = useUserStore();
+  useEffect(() => {
+    setUser(session);
+  }, []);
 
   return (
     <>
@@ -39,12 +45,10 @@ const Sidebar = ({
             <h2 className='text-white mb-4 text-center'>
               Welcome {pathName.includes("admin") ? "Admin" : "User"}
             </h2>
-            <img
-              className='w-10 h-10 mb-3 rounded-full'
-              src='https://flowbite.com/docs/images/people/profile-picture-5.jpg'
-              alt='user photo'
-            />
-            <h3 className='text-white'>{session?.user?.name}</h3>
+            <div className='p-2 rounded-full text-white text-xl bg-yellow-500'>
+              <FaUser />
+            </div>
+            <h3 className='text-white'>{session?.username}</h3>
           </div>
           <ul className='space-y-5 font-medium'>
             <li>
@@ -160,6 +164,7 @@ const Sidebar = ({
 
 export default Sidebar;
 const Menus = [
-  { name: "Balance", url: "/dashboard/balance" },
-  { name: "Withdraw", url: "/dashboard/balance/withdraw" },
+  { name: "Balance", url: "/dashboard/transactions/balance" },
+  { name: "Withdraw", url: "/dashboard/transactions/withdraw" },
+  { name: "History", url: "/dashboard/transactions/history" },
 ];

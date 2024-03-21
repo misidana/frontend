@@ -6,7 +6,7 @@ import QueryProviders from "./QueryProviders";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: " Suruhanjaya Master Binary",
+  title: "Suruhanjaya Master Binary",
   description:
     "Welcome To Suruhanjaya Master Binary. Suruhanjaya MasterBinary is an investment or stock trading company that was founded in 2009 and is present in almost all countries in the world.",
 };

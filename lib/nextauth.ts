@@ -1,5 +1,6 @@
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "./prisma";
 
 const authOptions: AuthOptions = {
@@ -7,6 +8,7 @@ const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
+  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -21,7 +23,16 @@ const authOptions: AuthOptions = {
           },
         });
 
-        return user;
+        if (credentials?.password! !== user?.password) {
+          return null;
+        } else {
+          return {
+            id: user?.id,
+            name: user?.username,
+            email: user?.email,
+            image: user?.balance.toLocaleString("ID"),
+          };
+        }
       },
     }),
   ],
