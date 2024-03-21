@@ -20,12 +20,12 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
 
   return (
-    <QueryProviders>
-      <html lang='en'>
+    <html lang='en'>
+      <QueryProviders>
         <body className={inter.className}>
           <Sidebar session={session}>{children}</Sidebar>
         </body>
-      </html>
-    </QueryProviders>
+      </QueryProviders>
+    </html>
   );
 }

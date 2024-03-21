@@ -22,11 +22,11 @@ const DropMenu = ({
       <div className='flex items-center justify-between'>
         <a className='menu-hover text-base font-medium'>
           <span className='flex text-white/70 hover:text-white hover:bg-white/10 p-2 rounded-lg w-60 items-center cursor-pointer'>
-            <div className='text-2xl mr-5'>
+            <div className='text-2xl mr-[16px]'>
               <FaMoneyCheckDollar />
             </div>
             {Title}
-            <p className='text-xl ml-16'>
+            <p className='text-xl ml-20'>
               <IoMdArrowDropdown />
             </p>
           </span>

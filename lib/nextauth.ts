@@ -1,5 +1,6 @@
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import prisma from "./prisma";
 
 const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -10,31 +11,17 @@ const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        identifier: { label: "Username", type: "text", placeholder: "jsmith" },
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const res = await fetch("https://long-tan-chick-tux.cyclic.app/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const user = await prisma.users.findUnique({
+          where: {
+            username: credentials?.username,
           },
-          body: JSON.stringify(credentials),
         });
-        const userData = await res.json();
-        const user = userData?.result;
-        const token = userData?.token;
 
-        if (res.status !== 200) {
-          return null;
-        } else {
-          return {
-            id: user._id,
-            name: user.username,
-            email: user._id,
-            image: token,
-          };
-        }
+        return user;
       },
     }),
   ],

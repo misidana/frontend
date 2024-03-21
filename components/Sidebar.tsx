@@ -9,6 +9,8 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaUser } from "react-icons/fa6";
 import { IoIosNotifications } from "react-icons/io";
 import { MdNotificationsActive } from "react-icons/md";
+import { signOut } from "next-auth/react";
+import { CgProfile } from "react-icons/cg";
 
 const Sidebar = ({
   children,
@@ -27,7 +29,7 @@ const Sidebar = ({
         className={
           showNav
             ? "fixed top-0 left-0 z-40 w-64 h-screen transition-transform translate-x-0"
-            : "fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+            : "fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0"
         }
       >
         <div
@@ -60,7 +62,18 @@ const Sidebar = ({
                   <path d='M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z' />
                   <path d='M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z' />
                 </svg>
-                <span className='ms-3'>Dashboard</span>
+                <span className='ms-5'>Dashboard</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href='/dashboard/profile'
+                className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
+              >
+                <div className='text-2xl'>
+                  <CgProfile />
+                </div>
+                <span className='ms-4'>Profile</span>
               </Link>
             </li>
             <Dropdown
@@ -69,9 +82,9 @@ const Sidebar = ({
               onPress={() => setShowNav(false)}
             />
             <li>
-              <Link
-                href=''
-                className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
+              <button
+                onClick={() => signOut()}
+                className='flex w-full items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
               >
                 <svg
                   className='flex-shrink-0 w-5 h-5 transition duration-75 transform rotate-180'
@@ -88,14 +101,14 @@ const Sidebar = ({
                     d='M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3'
                   />
                 </svg>
-                <span className='flex-1 ms-3 whitespace-nowrap'>Log Out</span>
-              </Link>
+                <span className='ms-5 whitespace-nowrap'>Log Out</span>
+              </button>
             </li>
           </ul>
         </div>
       </aside>
 
-      <div className='bg-[#2F2F2F] sm:ml-64 h-screen overflow-y-scroll'>
+      <div className='bg-[#2F2F2F] lg:ml-64 h-screen overflow-y-scroll'>
         <div className='flex p-2 bg-[#00CC99]'>
           <div className='flex w-full justify-end pr-4 items-center gap-3'>
             <button
@@ -147,6 +160,6 @@ const Sidebar = ({
 
 export default Sidebar;
 const Menus = [
-  { name: "Add Balance", url: "/dashboard/balance/add" },
+  { name: "Balance", url: "/dashboard/balance" },
   { name: "Withdraw", url: "/dashboard/balance/withdraw" },
 ];

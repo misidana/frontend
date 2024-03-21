@@ -1,9 +1,11 @@
 "use client";
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Loading from "./Loading";
-import { axiosInstance } from "@/lib/axios";
+import Loading, { SmallLoading } from "./Loading";
+import axios from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
+import HidedPassword from "./HidedPassword";
 
 interface UserType {
   username: string;
@@ -14,24 +16,31 @@ interface UserType {
 
 const RegisterForm = () => {
   const { handleSubmit, register } = useForm<UserType>();
+  const [err, setErr] = useState("");
+  const [hide, setHide] = useState(true);
+  const router = useRouter();
+  const invitationCode = useSearchParams().get("reff");
 
-  const { isPending, data, mutate, error, status } = useMutation({
+  const { isPending, mutate } = useMutation({
     mutationKey: ["register"],
     mutationFn: async (userData: UserType) => {
-      const { data } = await axiosInstance.post("/register", {
-        userData,
+      const { data } = await axios.post("/api/register", {
+        invitationCode,
+        ...userData,
       });
+      if (data?.status !== 201) {
+        setErr(data?.message);
+        return null;
+      }
+
+      router.push("/login");
       return data;
     },
   });
 
-  const onRegister: SubmitHandler<UserType> = (data) => {
-    mutate(data);
+  const onRegister: SubmitHandler<UserType> = (userData) => {
+    mutate(userData);
   };
-
-  console.log("ERROR", error);
-  console.log("DATA", data);
-  console.log("STATUS", status);
 
   return (
     <div className='w-full bg-blue-600/70 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0'>
@@ -49,6 +58,7 @@ const RegisterForm = () => {
         <h1 className='text-lg font-bold leading-tight tracking-tight text-white'>
           Create New account
         </h1>
+        <p className='my-3 text-sm text-center text-red-500'>{err}</p>
         <form
           onSubmit={handleSubmit(onRegister)}
           className='space-y-4 md:space-y-6'
@@ -87,10 +97,7 @@ const RegisterForm = () => {
             />
           </div>
           <div>
-            <label
-              htmlFor='password'
-              className='block mb-2 text-sm font-medium text-white'
-            >
+            <label className='block mb-2 text-sm font-medium text-white'>
               Phone Number
             </label>
             <input
@@ -105,13 +112,15 @@ const RegisterForm = () => {
             <label className='block mb-2 text-sm font-medium text-white'>
               Password
             </label>
-            <input
-              {...register("password")}
-              type='password'
-              placeholder='••••••••'
-              className='bg-black/30 border focus:outline-none focus:border-red-500 text-white sm:text-sm rounded-lg block w-full p-2.5 focus:p-3 duration-200'
-              required
-            />
+            <HidedPassword isHide={hide} onClick={() => setHide(!hide)}>
+              <input
+                {...register("password")}
+                type={!hide ? "text" : "password"}
+                placeholder='••••••••'
+                className='bg-black/30 border focus:outline-none focus:border-red-500 text-white sm:text-sm rounded-lg block w-full p-2.5 focus:p-3 duration-200'
+                required
+              />
+            </HidedPassword>
           </div>
           <div className='flex items-start'>
             <div className='flex items-center h-5'>
@@ -138,9 +147,9 @@ const RegisterForm = () => {
           <button
             disabled={isPending}
             type='submit'
-            className='w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+            className='w-full text-white flex justify-center disabled:bg-red-700 bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
           >
-            {isPending ? <Loading /> : "Create an account"}
+            {isPending ? <SmallLoading /> : "Create an account"}
           </button>
           <p className='text-sm font-light text-gray-300'>
             Already have an account?{" "}

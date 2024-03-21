@@ -5,3 +5,7 @@ const Loading = () => {
 };
 
 export default Loading;
+
+export const SmallLoading = () => {
+  return <div className='custom-loader-sm'></div>;
+};

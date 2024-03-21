@@ -1,26 +1,36 @@
 "use client";
 import { signIn } from "next-auth/react";
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import HidedPassword from "./HidedPassword";
+import { SmallLoading } from "./Loading";
 
 const LoginForm = () => {
-  const router = useRouter();
-
+  const [hide, setHide] = useState(true);
+  const [err, setErr] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
 
-    const identifier = e.currentTarget.identifier.value;
+    const username = e.currentTarget.identifier.value;
     const password = e.currentTarget.password.value;
 
+    console.log(username, password);
+
     const res = await signIn("credentials", {
-      identifier: identifier,
+      username: username,
       password: password,
       redirect: false,
       callbackUrl: "/dashboard",
     });
 
     if (res?.status === 200) {
-      router.push("/dashboard");
+      window.location.href = "/dashboard";
+    }
+
+    if (res?.status === 401) {
+      setErr("Wrong username or password");
+      setIsLoading(false);
     }
   };
 
@@ -40,13 +50,11 @@ const LoginForm = () => {
         <h1 className='text-lg font-bold leading-tight tracking-tight text-white'>
           Log In to your account
         </h1>
+        <p className='my-3 text-sm text-center text-red-500'>{err}</p>
         <form className='space-y-4 md:space-y-6' onSubmit={handleLogin}>
           <div>
-            <label
-              htmlFor='email'
-              className='block mb-2 text-sm font-medium text-white'
-            >
-              Username Or Email
+            <label className='block mb-2 text-sm font-medium text-white'>
+              Username
             </label>
             <input
               type='text'
@@ -60,19 +68,22 @@ const LoginForm = () => {
             <label className='block mb-2 text-sm font-medium text-white'>
               Password
             </label>
-            <input
-              type='password'
-              name='password'
-              placeholder='••••••••'
-              className='bg-black/30 border focus:outline-none focus:border-red-500 text-white sm:text-sm rounded-lg block w-full p-2.5 focus:p-3 duration-200'
-              required
-            />
+            <HidedPassword isHide={hide} onClick={() => setHide(!hide)}>
+              <input
+                type={hide ? "password" : "text"}
+                name='password'
+                placeholder='••••••••'
+                className='bg-black/30 border focus:outline-none focus:border-red-500 text-white sm:text-sm rounded-lg block w-full p-2.5 focus:p-3 duration-200'
+                required
+              />
+            </HidedPassword>
           </div>
           <button
+            disabled={isLoading}
             type='submit'
-            className='w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+            className='w-full disabled:bg-red-700 flex justify-center text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
           >
-            Login
+            {isLoading ? <SmallLoading /> : "Log In"}
           </button>
           <p className='text-sm font-light text-gray-300'>
             Don't have an account?{" "}
