@@ -2,11 +2,10 @@ import React from "react";
 import { BuyBalance } from "../../components/Balances";
 import prisma from "@/lib/prisma";
 import Layout from "../../components/Layout";
-import { getServerSession } from "next-auth";
-import authOptions from "@/lib/nextauth";
 
 const BalancePage = async () => {
   const paymentMethod = await prisma.paymentsMethod.findMany();
+
   return (
     <div className='flex w-full flex-col xl:flex-row gap-6'>
       <div className='w-full flex flex-col gap-5'>

@@ -9,11 +9,14 @@ import HowToDo from "@/components/HowToDo";
 import Navbar from "@/components/Navbar";
 import StartBlock from "@/components/StartBlock";
 import Welcome from "@/components/Welcome";
+import authOptions from "@/lib/nextauth";
+import { getServerSession } from "next-auth";
 
 export default async function Home() {
+  const session = await getServerSession(authOptions);
   return (
     <main className='bg-gray-900'>
-      <Navbar />
+      <Navbar session={session?.user} />
       <div className='max-w-screen-xl px-4 mx-auto'>
         <StartBlock />
         <CardsGradient />

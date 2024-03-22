@@ -51,7 +51,7 @@ const Sidebar = ({
             <h3 className='text-white'>{session?.username}</h3>
           </div>
           <ul className='space-y-5 font-medium'>
-            <li>
+            <li onClick={() => setShowNav(false)}>
               <Link
                 href='/dashboard'
                 className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
@@ -69,7 +69,7 @@ const Sidebar = ({
                 <span className='ms-5'>Dashboard</span>
               </Link>
             </li>
-            <li>
+            <li onClick={() => setShowNav(false)}>
               <Link
                 href='/dashboard/profile'
                 className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
@@ -85,7 +85,7 @@ const Sidebar = ({
               Title='Wallet'
               onPress={() => setShowNav(false)}
             />
-            <li>
+            <li onClick={() => setShowNav(false)}>
               <button
                 onClick={() => signOut()}
                 className='flex w-full items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'

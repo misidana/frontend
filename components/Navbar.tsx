@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
 
-const Navbar = () => {
+const Navbar = ({ session }: { session: any }) => {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -19,18 +20,16 @@ const Navbar = () => {
             </span>
           </a>
           <div className='lg:flex hidden items-center lg:order-2'>
-            <a
-              href='/login'
-              className='text-white ring-4 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 hover:bg-gray-700 focus:outline-none focus:ring-gray-800'
-            >
-              Log in
-            </a>
-            <a
-              href='/register'
-              className='text-white hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 bg-blue-600 focus:outline-none focus:ring-blue-800'
-            >
-              Register
-            </a>
+            <Link href={session?.name ? "/dashboard" : "/login"}>
+              <button className='text-white ring-4 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 hover:bg-gray-700 focus:outline-none focus:ring-gray-800'>
+                Log in
+              </button>
+            </Link>
+            <Link href={session?.name ? "/dashboard" : "/register"}>
+              <button className='text-white hover:bg-blue-800 focus:ring-4 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 bg-blue-600 focus:outline-none focus:ring-blue-800'>
+                Register
+              </button>
+            </Link>
           </div>
           <div className='flex items-center justify-between w-full lg:hidden'>
             <img src='/logo.png' className='mr-3 h-16' alt='Landwind Logo' />

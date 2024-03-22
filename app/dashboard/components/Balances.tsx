@@ -5,13 +5,14 @@ import UploadForm from "./UploadImage";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
 
 export const BuyBalance = () => {
   const { user } = useUserStore();
   const { imgUrl } = useUpload();
   const [amount, setAmount] = useState("");
+  const [isPendingTrans, setIsPendingTrans] = useState(false);
 
   const { isPending, mutate } = useMutation({
     mutationFn: async () => {
@@ -21,41 +22,69 @@ export const BuyBalance = () => {
         amount: parseInt(amount),
       });
       if (data?.success) {
-        toast.success("Buy balance is process");
-        window.location.href = "/dashboard/transactions/history";
-        return;
+        localStorage.setItem("newTransactionId-ms", data?.result?.id);
+        const newTransactionId = localStorage.getItem("newTransactionId-ms");
+        if (newTransactionId) {
+          toast.success("Buy balance is process");
+          window.location.href = "/dashboard/transactions/history";
+          return;
+        }
       }
       toast.error(data?.message);
       return data;
     },
   });
 
+  useEffect(() => {
+    const newTransactionId = localStorage.getItem("newTransactionId-ms");
+
+    if (newTransactionId) {
+      const getNewTransaction = async () => {
+        const { data } = await axios.get(
+          "/api/transactions/check-status/" + newTransactionId
+        );
+        if (data?.result?.status === false) {
+          setIsPendingTrans(true);
+        }
+      };
+      getNewTransaction();
+    }
+  }, []);
+
   return (
     <Layout title='Buy Balance'>
       {isPending && <Loading />}
       <form>
         <div className='text-white flex flex-col gap-2 w-full'>
-          <div className='p-2 text-sm bg-red-500 text-white rounded-lg'>
-            You still have a transaction pending status. Wait until the
-            transaction is processed in order to be able to buy USD balance
-            again.
-          </div>
+          {isPendingTrans && (
+            <div className='p-2 text-sm bg-red-500 text-white rounded-lg'>
+              You still have a transaction pending status. Wait until the
+              transaction is processed in order to be able to buy USD balance
+              again. Check History
+            </div>
+          )}
           <p className='text-sm'>Amount</p>
           <input
+            disabled={isPending}
             type='number'
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder='Enter amount min $10'
-            className='rounded-md p-2.5 w-full flex border outline-none bg-[#1f1f1f] border-white/35'
+            className='rounded-md disabled:opacity-50 p-2.5 w-full flex border outline-none bg-[#1f1f1f] border-white/35'
           />
           <div className='my-3'>
             payment screenshot:
-            <UploadForm />
+            <UploadForm isPending={isPending} />
           </div>
           <button
             onClick={() => {
-              if (amount.includes("-")) {
+              if (amount.includes("-") || amount === "") {
                 toast.error("Amount is not a valid number");
+                return null;
+              }
+
+              if (isPendingTrans) {
+                toast.error("Please wait for the transaction to complete");
                 return null;
               }
               mutate();

@@ -21,7 +21,7 @@ const HistoryPage = async () => {
 
   return (
     <Layout title='History Transaction'>
-      <table className='min-w-full text-white/60 rounded my-6'>
+      <table className='w-full text-white/60 rounded my-6 overflow-x-scroll'>
         <thead>
           <tr className='border-b'>
             <th className='text-left p-3 px-5'>Date</th>

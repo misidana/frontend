@@ -3,8 +3,9 @@ import axios from "axios";
 import { useUpload } from "@/lib/zustand";
 import { FaCheck } from "react-icons/fa6";
 import Loading from "@/components/Loading";
+import { toast } from "react-toastify";
 
-const UploadForm = () => {
+const UploadForm = ({ isPending }: { isPending: boolean }) => {
   const [file, setFile] = useState<any>(null);
   const { setImgUrl, isUpload, setIsUpload } = useUpload();
   const [IsLoading, setIsLoading] = useState(false);
@@ -14,13 +15,11 @@ const UploadForm = () => {
   };
 
   const handleSubmit = async () => {
-    const isTransaction = localStorage.getItem("newTransactionData");
-    if (isTransaction) {
-      alert(
-        "You still have a transaction pending status. Wait until the transaction is processed in order to be able to buy USD balance again."
-      );
+    if (isPending) {
+      toast.error("Please wait for the transaction to complete");
       return null;
     }
+
     setIsLoading(true);
     const formData = new FormData();
     formData.append("file", file);
