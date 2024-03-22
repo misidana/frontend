@@ -42,7 +42,7 @@ const About = () => {
                 <span className='text-5xl bg-gradient-to-r from-orange-500 to-red-500 p-5 rounded-lg '>
                   <FaRocket />
                 </span>
-                <p className='mb-5 text-base text-body-color'>
+                <div className='mb-5 text-base text-body-color'>
                   <span className='text-2xl font-bold mb-2'>
                     COMODO Ssl Security
                   </span>
@@ -50,7 +50,7 @@ const About = () => {
                     Our website is using Comodo SSL Security encryption and that
                     confirms that the presented content is legitimate.
                   </p>
-                </p>
+                </div>
               </div>
             </div>
           </div>

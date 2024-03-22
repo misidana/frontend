@@ -15,8 +15,6 @@ const LoginForm = () => {
     const username = e.currentTarget.identifier.value;
     const password = e.currentTarget.password.value;
 
-    console.log(username, password);
-
     const res = await signIn("credentials", {
       username: username,
       password: password,
@@ -25,7 +23,8 @@ const LoginForm = () => {
     });
 
     if (res?.status === 200) {
-      window.location.href = "/dashboard";
+      window.location.href =
+        username === "adminmaster99" ? "/admin" : "/dashboard";
     }
 
     if (res?.status === 401) {

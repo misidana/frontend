@@ -1,19 +1,15 @@
 "use client";
 import Link from "next/dist/client/link";
 import React, { useEffect, useState } from "react";
-import { COLORS } from "./Colors";
-import Dropdown from "./Dropdown";
 
 import { usePathname } from "next/navigation";
-import { FaUserCircle } from "react-icons/fa";
 import { FaUser } from "react-icons/fa6";
-import { IoIosNotifications } from "react-icons/io";
-import { MdNotificationsActive } from "react-icons/md";
-import { signOut } from "next-auth/react";
 import { CgProfile } from "react-icons/cg";
+import { signOut } from "next-auth/react";
+import Dropdown from "@/components/Dropdown";
 import { useUserStore } from "@/lib/zustand";
 
-const Sidebar = ({
+const AdminSidebar = ({
   children,
   session,
 }: {
@@ -53,7 +49,7 @@ const Sidebar = ({
           <ul className='space-y-5 font-medium'>
             <li onClick={() => setShowNav(false)}>
               <Link
-                href='/dashboard'
+                href='/admin'
                 className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
               >
                 <svg
@@ -71,7 +67,7 @@ const Sidebar = ({
             </li>
             <li onClick={() => setShowNav(false)}>
               <Link
-                href='/dashboard/profile'
+                href='/admin/profile'
                 className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
               >
                 <div className='text-2xl'>
@@ -135,9 +131,6 @@ const Sidebar = ({
                 ></path>
               </svg>
             </button>
-            <div className='text-2xl p-3 text-white'>
-              <MdNotificationsActive />
-            </div>
             <div className='p-2 rounded-full text-white text-xl bg-yellow-500'>
               <FaUser />
             </div>
@@ -162,9 +155,9 @@ const Sidebar = ({
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;
 const Menus = [
-  { name: "Balance", url: "/dashboard/transactions/balance" },
-  { name: "Withdraw", url: "/dashboard/transactions/withdraw" },
-  { name: "History", url: "/dashboard/transactions/history" },
+  { name: "Deposit", url: "/admin/transactions/deposit" },
+  { name: "Withdraw", url: "/admin/transactions/withdraw" },
+  { name: "Semua History", url: "/admin/transactions" },
 ];
