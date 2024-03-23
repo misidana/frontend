@@ -21,8 +21,10 @@ model Users {
   phoneNumber String   @unique
   password    String
   balance     Float    @default(0)
+  bonus       Float?   @default(0)
+  profits     Float?   @default(0)
   country     String?
-  referrers   String[]
+  referrers   String[] @default([])
   referrer    String?
   createdAt   DateTime @default(now())
 }
@@ -56,4 +58,20 @@ model PaymentsMethod {
   bankName     String
   noRekening   String
   image        String
+}
+
+model Invesment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  username  String
+  level     String
+  amount    Int
+  createdAt DateTime @default(now())
+}
+
+model Notifications {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  sender   String
+  username String
+  desc     String
+  date     DateTime @default(now())
 }

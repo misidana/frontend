@@ -17,7 +17,9 @@ const HistoryPage = async () => {
     },
   });
 
-  const history = [...deposit, ...withdraw];
+  const history = [...deposit, ...withdraw].sort((a, b) =>
+    a.status === true ? 1 : b.status === true ? -1 : 0
+  );
 
   return (
     <Layout title='History Transaction'>

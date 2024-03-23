@@ -3,7 +3,7 @@ import Link from "next/dist/client/link";
 import React, { useEffect, useState } from "react";
 
 import { usePathname } from "next/navigation";
-import { FaUser } from "react-icons/fa6";
+import { FaChartLine, FaUser } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
 import { signOut } from "next-auth/react";
 import Dropdown from "@/components/Dropdown";
@@ -78,9 +78,20 @@ const AdminSidebar = ({
             </li>
             <Dropdown
               Menus={Menus}
-              Title='Wallet'
+              Title='Transaksi'
               onPress={() => setShowNav(false)}
             />
+            <li onClick={() => setShowNav(false)}>
+              <Link
+                href='/admin/investment'
+                className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
+              >
+                <div className='text-2xl'>
+                  <FaChartLine />
+                </div>
+                <span className='ms-4'>History Investmen</span>
+              </Link>
+            </li>
             <li onClick={() => setShowNav(false)}>
               <button
                 onClick={() => signOut({ callbackUrl: "/login" })}

@@ -1,8 +1,11 @@
 "use client";
+import { useUserStore } from "@/lib/zustand";
 import React, { useEffect, useState } from "react";
 import { FaCopy } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const CopyUrl = () => {
+  const { user } = useUserStore();
   const [copied, setCopied] = useState(false);
   const [origin, setOrigin] = useState("");
 
@@ -11,6 +14,7 @@ const CopyUrl = () => {
   }, []);
 
   const copyLink = () => {
+    toast.success("Copied to clipboard");
     const textToCopy = document?.getElementById("textToCopy")?.innerText;
 
     navigator.clipboard
@@ -25,7 +29,7 @@ const CopyUrl = () => {
   return (
     <div className='flex mb-5 items-center text-white lg:w-[40%]'>
       <div className='p-3 bg-[#1f1f1f] text-sm rounded-l-lg border border-[#A1A1A1]/60'>
-        <p id='textToCopy'>{origin}</p>
+        <p id='textToCopy'>{`${origin}/register?reff=${user?.reffCode}`}</p>
       </div>
       <div
         onClick={copyLink}
@@ -41,6 +45,7 @@ const CopyUrl = () => {
 export default CopyUrl;
 
 export const Welcome = () => {
+  const { user } = useUserStore();
   const [origin, setOrigin] = useState("");
 
   useEffect(() => {
@@ -53,7 +58,9 @@ export const Welcome = () => {
         Welcome to Suruhanjaya Master Binary Member Panel. <br /> Your Refferal
         Link:
       </p>
-      <h2 className='text-lg lg:text-2xl text-[#A1A1A1] p-3'>{origin}</h2>
+      <h2 className='text-lg lg:text-2xl text-[#A1A1A1] p-3'>
+        {origin}/register?reff={user?.reffCode}
+      </h2>
     </div>
   );
 };

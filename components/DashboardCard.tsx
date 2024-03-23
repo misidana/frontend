@@ -84,7 +84,7 @@ function DashboardCard({
       return 0;
     } else {
       const persen = (nilai / total) * 100;
-      return persen;
+      return Math.round(persen);
     }
   }
 

@@ -59,17 +59,6 @@ const UploadForm = ({ isPending }: { isPending: boolean }) => {
         />
       </div>
       {IsLoading && "Loading..."}
-      {isUpload && (
-        <button
-          type='button'
-          className={
-            "my-3 border rounded-lg p-2 font-semibold flex items-center gap-2 text-blue-500 border-blue-500 disabled:opacity-50"
-          }
-        >
-          Uploaded
-          <FaCheck />
-        </button>
-      )}
     </div>
   );
 };

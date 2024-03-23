@@ -67,6 +67,23 @@ export async function POST(request: Request) {
           referrers: { push: username },
         },
       });
+
+      const user = await prisma.users.update({
+        where: {
+          reffCode: invitationCode,
+        },
+        data: {
+          bonus: { increment: 1.06 },
+        },
+      });
+
+      await prisma.notifications.create({
+        data: {
+          username: user.username,
+          sender: username,
+          desc: `${username} has used your referral link, Referral Bonus Added To Your Account`,
+        },
+      });
     }
 
     const users = await prisma.users.create({
@@ -76,7 +93,7 @@ export async function POST(request: Request) {
         email,
         password,
         phoneNumber,
-        referrer: invitationCode,
+        referrer: invitationCode || null,
       },
     });
 

@@ -64,14 +64,17 @@ export const BuyBalance = () => {
             </div>
           )}
           <p className='text-sm'>Amount</p>
-          <input
-            disabled={isPendingTrans}
-            type='number'
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder='Enter amount min $10'
-            className='rounded-md disabled:opacity-50 p-2.5 w-full flex border outline-none bg-[#1f1f1f] border-white/35'
-          />
+          <div className='p-2.5 w-full rounded-md flex border outline-none bg-[#1f1f1f] border-white/35'>
+            <h3 className='pr-2 border-r border-white/35'>USD</h3>
+            <input
+              disabled={isPendingTrans}
+              type='number'
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder='Enter amount min $10'
+              className='disabled:opacity-50 w-full px-2 rounded-md flex outline-none bg-[#1f1f1f]'
+            />
+          </div>
           <div className='my-3'>
             payment screenshot:
             <UploadForm isPending={isPendingTrans} />

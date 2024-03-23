@@ -6,7 +6,7 @@ import Dropdown from "./Dropdown";
 
 import { usePathname } from "next/navigation";
 import { FaUserCircle } from "react-icons/fa";
-import { FaUser } from "react-icons/fa6";
+import { FaChartBar, FaChartLine, FaUser } from "react-icons/fa6";
 import { IoIosNotifications } from "react-icons/io";
 import { MdNotificationsActive } from "react-icons/md";
 import { signOut } from "next-auth/react";
@@ -85,6 +85,17 @@ const Sidebar = ({
               Title='Wallet'
               onPress={() => setShowNav(false)}
             />
+            <li onClick={() => setShowNav(false)}>
+              <Link
+                href='/dashboard/invesment'
+                className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
+              >
+                <div className='text-2xl'>
+                  <FaChartLine />
+                </div>
+                <span className='ms-4'>Invesment</span>
+              </Link>
+            </li>
             <li onClick={() => setShowNav(false)}>
               <button
                 onClick={() => signOut({ callbackUrl: "/login" })}
