@@ -65,7 +65,7 @@ export const BuyBalance = () => {
           )}
           <p className='text-sm'>Amount</p>
           <input
-            disabled={isPending}
+            disabled={isPendingTrans}
             type='number'
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -74,7 +74,7 @@ export const BuyBalance = () => {
           />
           <div className='my-3'>
             payment screenshot:
-            <UploadForm isPending={isPending} />
+            <UploadForm isPending={isPendingTrans} />
           </div>
           <button
             onClick={() => {

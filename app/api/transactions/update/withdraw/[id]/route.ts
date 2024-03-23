@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 export async function PATCH(request: Request) {
   try {
     const username = request.url.split("/").pop();
-    const { balance } = await request.json();
+    const { balance, id } = await request.json();
 
-    if (!username || !balance) {
+    if (!username || !balance || !id) {
       return NextResponse.json({ success: false, message: "Data is required" });
     }
 
-    const user = await prisma.users.findUnique({
+    const user: any = await prisma.users.findUnique({
       where: {
         username,
       },
@@ -22,6 +22,15 @@ export async function PATCH(request: Request) {
       },
       data: {
         balance: user?.balance - balance,
+      },
+    });
+
+    await prisma.withdraw.update({
+      where: {
+        id,
+      },
+      data: {
+        status: true,
       },
     });
 

@@ -79,6 +79,15 @@ function DashboardCard({
     ],
   };
 
+  function getPersentase(nilai: number, total: number) {
+    if (total === 0) {
+      return 0;
+    } else {
+      const persen = (nilai / total) * 100;
+      return persen;
+    }
+  }
+
   return (
     <div className='flex flex-col relative bg-[#1f1f1f] overflow-hidden text-white rounded-lg shadow-lg shadow-[#A1A1A1]/15'>
       <div className='absolute bg-black top-0 left-0 w-full h-full opacity-0'></div>
@@ -90,6 +99,7 @@ function DashboardCard({
         <div className='text-xs font-semibold uppercase mb-1'>{desc}</div>
         <div className='flex items-start'>
           <div className='text-3xl text-yellow-400 font-bold mr-2'>
+            {title !== "Refferal" ? "$" : ""}
             {total}{" "}
             {title === "Refferal" ? (
               <span className='text-base'>members</span>
@@ -98,7 +108,7 @@ function DashboardCard({
             )}
           </div>
           <div className='text-sm font-semibold  px-1.5 bg-emerald-500 rounded-full'>
-            {percent}
+            {getPersentase(total, 1000)}%
           </div>
         </div>
       </div>

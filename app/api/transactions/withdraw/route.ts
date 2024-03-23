@@ -4,7 +4,10 @@ import prisma from "@/lib/prisma";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { username, amount, country, bankName, accNumber, accName } = body;
+    const { username, amount, country, bankName, accNumber, accName } =
+      body.withdrawdata;
+    console.log(body);
+
     if (
       !username ||
       !amount ||
@@ -23,7 +26,7 @@ export async function POST(request: Request) {
     const withdraw = await prisma.withdraw.create({
       data: {
         username,
-        amount,
+        amount: parseInt(amount),
         country,
         bankName,
         rekeningName: accName,

@@ -6,6 +6,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useUserStore } from "@/lib/zustand";
+import Loading from "@/components/Loading";
 
 const WithdrawPage = () => {
   const { user } = useUserStore();
@@ -17,6 +18,7 @@ const WithdrawPage = () => {
       const { data } = await axios.post("/api/transactions/withdraw", {
         withdrawdata,
       });
+      console.log(data);
 
       if (data?.success) {
         localStorage.setItem("newTransactionId-ms", data?.result?.id);
@@ -31,12 +33,11 @@ const WithdrawPage = () => {
   });
 
   const onWithdraw = (data: any) => {
-    const amount = Number(data?.amount);
+    const amount = parseInt(data?.amount);
     if (user?.balance! < amount) {
       toast.error("your balance is low");
       return null;
     }
-    console.log(parseInt(data?.amount));
     if (data?.amount?.includes("-") || data?.amount === "") {
       toast.error("Amount is not a valid number");
       return null;
@@ -49,8 +50,9 @@ const WithdrawPage = () => {
     const withdrawdata: any = {
       amount: amount,
       ...data,
+      username: user?.username,
     };
-    mutate(withdrawdata);
+    mutate({ ...withdrawdata });
   };
 
   useEffect(() => {
@@ -71,6 +73,7 @@ const WithdrawPage = () => {
 
   return (
     <Layout title='Withdraw Transaction'>
+      {isPending && <Loading />}
       <form
         onSubmit={handleSubmit(onWithdraw)}
         className='flex w-full flex-col gap-5'
