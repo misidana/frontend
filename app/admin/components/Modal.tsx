@@ -11,6 +11,8 @@ interface UserProps {
   id: string;
   username: string;
   reffCode: string;
+  bonus: number;
+  profits: number;
   date: string;
   country: string | null;
   refferers: Array<string>;
@@ -25,6 +27,8 @@ const Modal: React.FC<UserProps> = ({
   id,
   refferers,
   reffer,
+  bonus,
+  profits,
 }) => {
   const [getReffer, setGetreffer] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -65,6 +69,12 @@ const Modal: React.FC<UserProps> = ({
                 RefferalCode: {reffCode}
               </p>
               <p className='text-white text-sm sm:text-base'>
+                Bonus: {bonus ? bonus : "-"}
+              </p>
+              <p className='text-white text-sm sm:text-base'>
+                Profits: {profits ? profits : "-"}
+              </p>
+              <p className='text-white text-sm sm:text-base'>
                 Country: {country ? country : "-"}
               </p>
               <div className='text-white text-sm sm:text-base'>
@@ -100,15 +110,14 @@ const Modal: React.FC<UserProps> = ({
 export default Modal;
 
 const DeleteUser = ({ id, username }: { id: string; username: string }) => {
-  console.log(id);
+  const [load, setLoad] = useState(false);
 
   const onDelete = async () => {
     const confDel = confirm("Yakin Akan Menghapus " + username + "?");
     if (!confDel) return null;
 
     const { data } = await axios.delete("/api/user/delete/" + id);
-    console.log(data);
-
+    setLoad(true);
     if (data?.success) {
       toast.success(data?.message);
       window.location.reload();
@@ -116,21 +125,28 @@ const DeleteUser = ({ id, username }: { id: string; username: string }) => {
     } else {
       toast.error(data?.message);
     }
+    setLoad(false);
   };
   return (
-    <button
-      onClick={onDelete}
-      type='button'
-      className='bg-red-500 hover:bg-red-600 rounded-md text-white p-2.5 text-xs lg:text-sm font-bold uppercase'
-    >
-      delete
-    </button>
+    <div>
+      {load && <Loading />}
+      <button
+        onClick={onDelete}
+        type='button'
+        className='bg-red-500 hover:bg-red-600 rounded-md text-white p-2.5 text-xs lg:text-sm font-bold uppercase'
+      >
+        delete
+      </button>
+    </div>
   );
 };
 
 const SendBonus = ({ username }: { username: string }) => {
   const [load, setLoad] = useState(false);
   const [amount, setAmount] = useState("");
+
+  console.log(username);
+
   const onSend = async () => {
     if (!amount) {
       toast.error("Amount is required");
@@ -139,7 +155,7 @@ const SendBonus = ({ username }: { username: string }) => {
     setLoad(true);
     const { data } = await axios.post("/api/user/bonus", {
       username,
-      desc: `Bonus ${parseInt(amount)} USD`,
+      desc: `$${parseInt(amount)} Bonus For you in today`,
       amount: parseInt(amount),
     });
     if (data?.success) {

@@ -31,6 +31,8 @@ const page = async () => {
                   date={his.createdAt.toLocaleDateString()}
                   reffCode={his.reffCode}
                   country={his.country}
+                  bonus={his.bonus || 0}
+                  profits={his.profits || 0}
                   refferers={his.referrers}
                   reffer={his.referrer}
                 />

@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Progress from "../Progress";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +34,7 @@ export default async function RootLayout({
     <QueryProviders>
       <html lang='en'>
         <body className={inter.className}>
+          <Progress />
           <ToastContainer />
           <AdminSidebar session={user}>{children}</AdminSidebar>
         </body>

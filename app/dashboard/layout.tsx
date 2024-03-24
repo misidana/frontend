@@ -7,6 +7,7 @@ import authOptions from "@/lib/nextauth";
 import prisma from "@/lib/prisma";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Progress from "../Progress";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default async function RootLayout({
     <html lang='en'>
       <QueryProviders>
         <body className={inter.className}>
+          <Progress />
           <ToastContainer />
           <Sidebar session={user}>{children}</Sidebar>
         </body>

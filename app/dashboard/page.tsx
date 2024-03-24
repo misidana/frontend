@@ -37,7 +37,7 @@ const DashboardPage = async () => {
           desc='Total Bonus'
           percent='0%'
           title='Bonus'
-          total={0}
+          total={user?.bonus || 0}
           data={data}
           labels={labels}
         />

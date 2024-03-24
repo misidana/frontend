@@ -20,9 +20,9 @@ model Users {
   email       String   @unique
   phoneNumber String   @unique
   password    String
-  balance     Float    @default(0)
-  bonus       Float?   @default(0)
-  profits     Float?   @default(0)
+  balance     Int      @default(0)
+  bonus       Int?     @default(0)
+  profits     Int?     @default(0)
   country     String?
   referrers   String[] @default([])
   referrer    String?
