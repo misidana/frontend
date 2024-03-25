@@ -1,17 +1,26 @@
 "use client";
 import Link from "next/dist/client/link";
 import React, { useEffect, useState } from "react";
-import { COLORS } from "./Colors";
 import Dropdown from "./Dropdown";
 
 import { usePathname } from "next/navigation";
-import { FaUserCircle } from "react-icons/fa";
-import { FaChartBar, FaChartLine, FaUser } from "react-icons/fa6";
-import { IoIosNotifications } from "react-icons/io";
+import {
+  FaChartLine,
+  FaIdCard,
+  FaMoneyBillTrendUp,
+  FaMoneyCheckDollar,
+  FaUser,
+} from "react-icons/fa6";
 import { MdNotificationsActive } from "react-icons/md";
 import { signOut } from "next-auth/react";
 import { CgProfile } from "react-icons/cg";
 import { useUserStore } from "@/lib/zustand";
+import IconsNav from "@/app/dashboard/components/IconsNav";
+import {
+  Funds,
+  Menus,
+  Notifications,
+} from "@/app/dashboard/components/MenuSidebar";
 
 const Sidebar = ({
   children,
@@ -80,10 +89,22 @@ const Sidebar = ({
                 <span className='ms-4'>Profile</span>
               </Link>
             </li>
+            <li onClick={() => setShowNav(false)}>
+              <Link
+                href='/dashboard/kyc'
+                className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
+              >
+                <div className='text-2xl'>
+                  <FaIdCard />
+                </div>
+                <span className='ms-4'>KYC</span>
+              </Link>
+            </li>
             <Dropdown
               Menus={Menus}
               Title='Wallet'
               onPress={() => setShowNav(false)}
+              icon={<FaMoneyCheckDollar />}
             />
             <li onClick={() => setShowNav(false)}>
               <Link
@@ -96,6 +117,18 @@ const Sidebar = ({
                 <span className='ms-4'>Invesment</span>
               </Link>
             </li>
+            <Dropdown
+              Menus={Funds}
+              Title='Funds'
+              onPress={() => setShowNav(false)}
+              icon={<FaMoneyBillTrendUp />}
+            />
+            <Dropdown
+              Menus={Notifications}
+              Title='Notifications'
+              onPress={() => setShowNav(false)}
+              icon={<MdNotificationsActive />}
+            />
             <li onClick={() => setShowNav(false)}>
               <button
                 onClick={() => signOut({ callbackUrl: "/login" })}
@@ -146,12 +179,7 @@ const Sidebar = ({
                 ></path>
               </svg>
             </button>
-            <div className='text-2xl p-3 text-white'>
-              <MdNotificationsActive />
-            </div>
-            <div className='p-2 rounded-full text-white text-xl bg-yellow-500'>
-              <FaUser />
-            </div>
+            <IconsNav />
           </div>
         </div>
 
@@ -174,8 +202,3 @@ const Sidebar = ({
 };
 
 export default Sidebar;
-const Menus = [
-  { name: "Balance", url: "/dashboard/transactions/balance" },
-  { name: "Withdraw", url: "/dashboard/transactions/withdraw" },
-  { name: "History", url: "/dashboard/transactions/history" },
-];

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useUpload } from "@/lib/zustand";
-import { FaCheck } from "react-icons/fa6";
 import Loading from "@/components/Loading";
 import { toast } from "react-toastify";
 

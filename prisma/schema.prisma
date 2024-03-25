@@ -75,3 +75,21 @@ model Notifications {
   desc     String
   date     DateTime @default(now())
 }
+
+model News {
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  desc  String
+  date  DateTime @default(now())
+}
+
+model Kyc {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  username  String   @unique
+  fullname  String
+  cardImage String
+  faceImage String
+  address   String
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

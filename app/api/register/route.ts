@@ -73,14 +73,14 @@ export async function POST(request: Request) {
           reffCode: invitationCode,
         },
         data: {
-          bonus: { increment: 1.06 },
+          bonus: { increment: 1 },
         },
       });
 
       await prisma.notifications.create({
         data: {
           username: user.username,
-          sender: username,
+          sender: "Bonus Added",
           desc: `${username} has used your referral link, Referral Bonus Added To Your Account`,
         },
       });

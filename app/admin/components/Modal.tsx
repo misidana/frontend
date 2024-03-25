@@ -69,7 +69,7 @@ const Modal: React.FC<UserProps> = ({
                 RefferalCode: {reffCode}
               </p>
               <p className='text-white text-sm sm:text-base'>
-                Bonus: {bonus ? bonus : "-"}
+                Bonus: ${bonus ? bonus : "-"}
               </p>
               <p className='text-white text-sm sm:text-base'>
                 Profits: {profits ? profits : "-"}
@@ -144,8 +144,6 @@ const DeleteUser = ({ id, username }: { id: string; username: string }) => {
 const SendBonus = ({ username }: { username: string }) => {
   const [load, setLoad] = useState(false);
   const [amount, setAmount] = useState("");
-
-  console.log(username);
 
   const onSend = async () => {
     if (!amount) {

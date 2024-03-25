@@ -12,21 +12,23 @@ const DropMenu = ({
   Title,
   Menus,
   onPress,
+  icon,
 }: {
   Title: string;
   Menus: Array<MenuProps>;
   onPress: () => void;
+  icon: React.ReactNode;
 }) => {
   return (
     <div className='group relative cursor-pointer'>
       <div className='flex items-center justify-between'>
         <a className='menu-hover text-base font-medium'>
-          <span className='flex text-white/70 hover:text-white hover:bg-white/10 p-2 rounded-lg w-60 items-center cursor-pointer'>
-            <div className='text-2xl mr-[16px]'>
-              <FaMoneyCheckDollar />
+          <span className='flex justify-between text-white/70 hover:text-white hover:bg-white/10 p-2 rounded-lg w-60 items-center cursor-pointer'>
+            <div className='flex gap-4'>
+              <div className='text-2xl'>{icon}</div>
+              <p>{Title}</p>
             </div>
-            {Title}
-            <p className='text-xl ml-20'>
+            <p className='text-xl'>
               <IoMdArrowDropdown />
             </p>
           </span>

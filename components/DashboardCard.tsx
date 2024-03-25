@@ -6,7 +6,6 @@ interface DashboardCardProps {
   title: string;
   desc: string;
   total: number;
-  percent: string;
   labels: Array<string>;
   data: Array<number>;
 }
@@ -16,7 +15,6 @@ function DashboardCard({
   title,
   desc,
   total,
-  percent,
   labels,
   data,
 }: DashboardCardProps) {
@@ -84,7 +82,7 @@ function DashboardCard({
       return 0;
     } else {
       const persen = (nilai / total) * 100;
-      return Math.round(persen);
+      return persen.toString().slice(0, 4);
     }
   }
 

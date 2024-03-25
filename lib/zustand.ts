@@ -31,6 +31,28 @@ export const useUpload = create<UploadType>((set) => ({
   },
 }));
 
+export const useUploadCard = create<UploadType>((set) => ({
+  isUpload: false,
+  imgUrl: null,
+  setIsUpload(value) {
+    set((state) => ({ isUpload: value }));
+  },
+  setImgUrl(url) {
+    set((state) => ({ imgUrl: url }));
+  },
+}));
+
+export const useUploadFace = create<UploadType>((set) => ({
+  isUpload: false,
+  imgUrl: null,
+  setIsUpload(value) {
+    set((state) => ({ isUpload: value }));
+  },
+  setImgUrl(url) {
+    set((state) => ({ imgUrl: url }));
+  },
+}));
+
 // Definisikan tipe untuk state dan action
 type UserStore = {
   user: User | null;
