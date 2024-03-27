@@ -79,7 +79,7 @@ const DashboardPage = async () => {
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-5'>
         <div className='flex bg-[#1f1f1f] rounded-lg flex-col my-5 text-white w-full shadow-lg shadow-[#A1A1A1]/15'>
           <h2 className='text-xl border-b border-[#A1A1A1]/60 p-3'>
-            Latest Notifications
+            Latest News
           </h2>
           {AllNews.map((news) => (
             <div className='flex items-center border border-white/20 gap-4 m-3 rounded-lg p-2'>

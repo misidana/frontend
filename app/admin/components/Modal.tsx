@@ -69,32 +69,33 @@ const Modal: React.FC<UserProps> = ({
                 RefferalCode: {reffCode}
               </p>
               <p className='text-white text-sm sm:text-base'>
-                Bonus: ${bonus ? bonus : "-"}
+                Bonus: ${bonus ? bonus : "0"}
               </p>
               <p className='text-white text-sm sm:text-base'>
-                Profits: {profits ? profits : "-"}
+                Profits: ${profits ? profits : "0"}
               </p>
               <p className='text-white text-sm sm:text-base'>
                 Country: {country ? country : "-"}
               </p>
               <div className='text-white text-sm sm:text-base'>
                 Mengundang:{" "}
-                {refferers.map((reff) => (
-                  <li className='list-disc'>{reff}</li>
+                {refferers.map((reff, idx) => (
+                  <li key={idx} className='list-disc'>
+                    {reff}
+                  </li>
                 ))}
                 {refferers.length === 0 && "-"}
               </div>
               <p className='text-white'>
                 DI Undang Oleh: {getReffer ? getReffer : "-"}
               </p>
-              <div className='flex w-full mt-6 gap-1 items-center lg:gap-5'>
-                <div className='w-[25%]'>
-                  <DeleteUser id={id} username={username} />
-                </div>
-                <div className='w-[75%]'>
-                  <SendBonus username={username} />
-                </div>
+              <div className='w-[25%]'>
+                <DeleteUser id={id} username={username} />
               </div>
+            </div>
+            <div className='flex gap-5 mt-5 flex-col p-2'>
+              <SendBonus username={username} />
+              <SendProfits username={username} />
             </div>
           </div>
           <div
@@ -144,8 +145,9 @@ const DeleteUser = ({ id, username }: { id: string; username: string }) => {
 const SendBonus = ({ username }: { username: string }) => {
   const [load, setLoad] = useState(false);
   const [amount, setAmount] = useState("");
+  const [desc, setDesc] = useState("");
 
-  const onSend = async () => {
+  const onSendBonus = async () => {
     if (!amount) {
       toast.error("Amount is required");
       return null;
@@ -153,8 +155,8 @@ const SendBonus = ({ username }: { username: string }) => {
     setLoad(true);
     const { data } = await axios.post("/api/user/bonus", {
       username,
-      desc: `$${parseInt(amount)} Bonus For you in today`,
       amount: parseInt(amount),
+      desc,
     });
     if (data?.success) {
       toast.success(data?.message);
@@ -166,27 +168,109 @@ const SendBonus = ({ username }: { username: string }) => {
   };
 
   return (
-    <div className='flex justify-end'>
-      {load && <Loading />}
-      <div className='p-2.5 w-full rounded-md flex border outline-none bg-[#1f1f1f] border-white/35'>
+    <div>
+      <div className='flex justify-end'>
+        {load && <Loading />}
+        <div className='p-2.5 w-full rounded-md flex border outline-none bg-[#1f1f1f] border-white/35'>
+          <h3 className='pr-2 border-r text-xs lg:text-sm m-auto border-white/35'>
+            USD
+          </h3>
+          <input
+            type='number'
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder='Enter Bonus min 1'
+            className='disabled:opacity-50 w-full px-2 rounded-md text-xs lg:text-sm flex outline-none bg-[#1f1f1f]'
+          />
+        </div>
+      </div>
+      <div className='p-2.5 w-full rounded-md mt-3 flex border outline-none bg-[#1f1f1f] border-white/35'>
         <h3 className='pr-2 border-r text-xs lg:text-sm m-auto border-white/35'>
-          USD
+          DESC
         </h3>
         <input
-          type='number'
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder='Enter Bonus'
+          type='text'
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+          placeholder='Deskripsi Bonus'
           className='disabled:opacity-50 w-full px-2 rounded-md text-xs lg:text-sm flex outline-none bg-[#1f1f1f]'
         />
       </div>
-      <button
-        onClick={onSend}
-        type='button'
-        className='bg-green-500 ml-auto hover:bg-green-600 rounded-md text-white p-1.5 sm:p-2 text-xs lg:text-sm font-bold uppercase'
-      >
-        kirim
-      </button>
+      <div className='flex mt-3 justify-end'>
+        <button
+          onClick={onSendBonus}
+          type='button'
+          className='bg-green-500 ml-auto hover:bg-green-600 rounded-md text-white p-1.5 sm:p-2 text-xs lg:text-sm font-bold uppercase'
+        >
+          kirim
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const SendProfits = ({ username }: { username: string }) => {
+  const [load, setLoad] = useState(false);
+  const [amount, setAmount] = useState("");
+  const [desc, setDesc] = useState("");
+
+  const onSendProfit = async () => {
+    if (!amount) {
+      toast.error("Amount is required");
+      return null;
+    }
+    setLoad(true);
+    const { data } = await axios.post("/api/user/profit", {
+      username,
+      amount: parseInt(amount),
+      desc,
+    });
+    if (data?.success) {
+      toast.success(data?.message);
+      window.location.reload();
+    } else {
+      toast.error(data?.message);
+      setLoad(false);
+    }
+  };
+  return (
+    <div>
+      <div className='flex justify-end'>
+        {load && <Loading />}
+        <div className='p-2.5 w-full rounded-md flex border outline-none bg-[#1f1f1f] border-white/35'>
+          <h3 className='pr-2 border-r text-xs lg:text-sm m-auto border-white/35'>
+            USD
+          </h3>
+          <input
+            type='number'
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder='Enter Profits for user'
+            className='disabled:opacity-50 w-full px-2 rounded-md text-xs lg:text-sm flex outline-none bg-[#1f1f1f]'
+          />
+        </div>
+      </div>
+      <div className='p-2.5 w-full rounded-md mt-3 flex border outline-none bg-[#1f1f1f] border-white/35'>
+        <h3 className='pr-2 border-r text-xs lg:text-sm m-auto border-white/35'>
+          DESC
+        </h3>
+        <input
+          type='text'
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+          placeholder='Deskripsi Profit'
+          className='disabled:opacity-50 w-full px-2 rounded-md text-xs lg:text-sm flex outline-none bg-[#1f1f1f]'
+        />
+      </div>
+      <div className='flex mt-3 justify-end'>
+        <button
+          onClick={onSendProfit}
+          type='button'
+          className='bg-blue-500 ml-auto hover:bg-blue-600 rounded-md text-white p-1.5 sm:p-2 text-xs lg:text-sm font-bold uppercase'
+        >
+          kirim
+        </button>
+      </div>
     </div>
   );
 };

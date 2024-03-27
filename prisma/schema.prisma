@@ -29,6 +29,16 @@ model Users {
   createdAt   DateTime @default(now())
 }
 
+model Refferal {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  refferedBy  String
+  username    String
+  email       String
+  phoneNumber String
+  status      String   @default("Active")
+  date        DateTime @default(now())
+}
+
 model Deposit {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   username  String
@@ -92,4 +102,31 @@ model Kyc {
   address   String
   verified  Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model Bonus {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  username String
+  amount   Int
+  from     String
+  desc     String
+  date     DateTime @default(now())
+}
+
+model Profits {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  username String
+  amount   Int
+  desc     String
+  date     DateTime @default(now())
+}
+
+model Trade {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  market    String
+  amount    Int
+  reteStake String
+  rateEnd   String
+  status    Boolean  @default(false)
+  date      DateTime @default(now())
 }

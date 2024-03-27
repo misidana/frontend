@@ -5,14 +5,17 @@ export async function POST(req: Request) {
   try {
     const { username, amount, desc } = await req.json();
     if (!username || !amount || !desc) {
-      return NextResponse.json({ message: "Data is required", success: false });
+      return NextResponse.json({
+        success: false,
+        message: "Data is required",
+      });
     }
 
-    await prisma.notifications.create({
+    await prisma.profits.create({
       data: {
         username,
-        sender: "Suruhanjaya Master Binary",
-        desc: `Bonus Added: ${amount} To Your Account!`,
+        amount,
+        desc,
       },
     });
 
@@ -21,26 +24,20 @@ export async function POST(req: Request) {
         username,
       },
       data: {
-        bonus: {
+        profits: {
           increment: amount,
         },
       },
     });
 
-    await prisma.bonus.create({
-      data: {
-        username,
-        amount,
-        desc,
-        from: "Suruhanjaya Master Binary",
-      },
-    });
-
     return NextResponse.json({
       success: true,
-      message: "Bonus added successfully",
+      message: "Profit added successfully",
     });
   } catch (error) {
-    return NextResponse.json({ message: (error as Error).message });
+    return NextResponse.json({
+      success: false,
+      message: (error as Error).message,
+    });
   }
 }

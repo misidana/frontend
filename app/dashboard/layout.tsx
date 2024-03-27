@@ -34,7 +34,9 @@ export default async function RootLayout({
         <body className={inter.className}>
           <Progress />
           <ToastContainer />
-          <Sidebar session={user}>{children}</Sidebar>
+          <div>
+            <Sidebar session={user}>{children}</Sidebar>
+          </div>
         </body>
       </QueryProviders>
     </html>

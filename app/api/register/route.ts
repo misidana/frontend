@@ -68,22 +68,31 @@ export async function POST(request: Request) {
         },
       });
 
-      const user = await prisma.users.update({
-        where: {
-          reffCode: invitationCode,
-        },
+      await prisma.refferal.create({
         data: {
-          bonus: { increment: 1 },
+          refferedBy: invitationCode,
+          username: username,
+          email: email,
+          phoneNumber: phoneNumber,
         },
       });
 
-      await prisma.notifications.create({
-        data: {
-          username: user.username,
-          sender: "Bonus Added",
-          desc: `${username} has used your referral link, Referral Bonus Added To Your Account`,
-        },
-      });
+      // const user = await prisma.users.update({
+      //   where: {
+      //     reffCode: invitationCode,
+      //   },
+      //   data: {
+      //     bonus: { increment: 1 },
+      //   },
+      // });
+
+      // await prisma.notifications.create({
+      //   data: {
+      //     username: user.username,
+      //     sender: "Bonus Added",
+      //     desc: `${username} has used your referral link, Referral Bonus Added To Your Account`,
+      //   },
+      // });
     }
 
     const users = await prisma.users.create({

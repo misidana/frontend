@@ -12,6 +12,7 @@ import {
   FaUser,
 } from "react-icons/fa6";
 import { MdNotificationsActive } from "react-icons/md";
+import { TbUsersPlus } from "react-icons/tb";
 import { signOut } from "next-auth/react";
 import { CgProfile } from "react-icons/cg";
 import { useUserStore } from "@/lib/zustand";
@@ -43,14 +44,15 @@ const Sidebar = ({
         id='default-sidebar'
         className={
           showNav
-            ? "fixed top-0 left-0 z-40 w-64 h-screen transition-transform translate-x-0"
+            ? "fixed top-0 left-0 z-40 w-64 h-screen transition-transform translate-x-0 overflow-y-scroll"
             : "fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0"
         }
       >
         <div
-          className={`h-full px-3 py-4 overflow-y-auto bg-[#232A34] shadow-xl`}
+          className={`h-full px-3 py-4 overflow-y-auto overflow-x-hidden bg-[#232A34] shadow-xl`}
         >
-          <div className='flex justify-center items-center flex-col bg-[#333c49] p-5 rounded-lg my-6'>
+          <img src='/logo.png' className='w-[80px] mx-auto' alt='' />
+          <div className='flex justify-center items-center flex-col bg-[#333c49] p-5 rounded-lg mb-6'>
             <h2 className='text-white mb-4 text-center'>
               Welcome {pathName.includes("admin") ? "Admin" : "User"}
             </h2>
@@ -117,6 +119,17 @@ const Sidebar = ({
                 <span className='ms-4'>Invesment</span>
               </Link>
             </li>
+            <li onClick={() => setShowNav(false)}>
+              <Link
+                href='/dashboard/refferal'
+                className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
+              >
+                <div className='text-2xl'>
+                  <TbUsersPlus />
+                </div>
+                <span className='ms-4'>Reffreral</span>
+              </Link>
+            </li>
             <Dropdown
               Menus={Funds}
               Title='Funds'
@@ -179,6 +192,7 @@ const Sidebar = ({
                 ></path>
               </svg>
             </button>
+            <img src='/logo.png' className='w-[50px]' alt='' />
             <IconsNav />
           </div>
         </div>

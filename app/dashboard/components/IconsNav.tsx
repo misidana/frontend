@@ -1,6 +1,7 @@
 "use client";
 import { useUserStore } from "@/lib/zustand";
 import axios from "axios";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa6";
 import {
@@ -39,9 +40,12 @@ const IconsNav = () => {
           ))}
         </div>
       </div> */}
-      <div className='p-2 rounded-full cursor-pointer text-white text-xl bg-yellow-500'>
+      <Link
+        href={"/dashboard/profile"}
+        className='p-2 rounded-full cursor-pointer text-white text-xl bg-yellow-500'
+      >
         <FaUser />
-      </div>
+      </Link>
     </div>
   );
 };
