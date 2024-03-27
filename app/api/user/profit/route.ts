@@ -30,6 +30,14 @@ export async function POST(req: Request) {
       },
     });
 
+    await prisma.notifications.create({
+      data: {
+        username,
+        sender: "Suruhanjaya Master Binary",
+        desc: `Profit Added: ${amount} To Your Account!`,
+      },
+    });
+
     return NextResponse.json({
       success: true,
       message: "Profit added successfully",

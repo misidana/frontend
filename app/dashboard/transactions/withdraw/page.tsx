@@ -18,7 +18,6 @@ const WithdrawPage = () => {
       const { data } = await axios.post("/api/transactions/withdraw", {
         withdrawdata,
       });
-      console.log(data);
 
       if (data?.success) {
         localStorage.setItem("newTransactionId-ms", data?.result?.id);

@@ -35,7 +35,6 @@ const UploadForm = ({ isPending }: { isPending: boolean }) => {
         setIsLoading(false);
       }
     } catch (error) {
-      console.error(error);
       setIsLoading(false);
       window.location.reload();
     }

@@ -10,8 +10,6 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ success: false, message: "Data is required" });
     }
 
-    console.log(username, balance, id);
-
     const user = await prisma.users.findUnique({
       where: {
         username,

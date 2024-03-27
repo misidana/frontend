@@ -6,7 +6,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { username, amount, country, bankName, accNumber, accName } =
       body.withdrawdata;
-    console.log(body);
 
     if (
       !username ||

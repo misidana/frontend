@@ -23,8 +23,6 @@ const Password = () => {
           password,
         }
       );
-      console.log(data);
-
       if (data?.success) {
         toast.success("Password Updated!");
         refresh();

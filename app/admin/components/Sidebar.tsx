@@ -14,6 +14,7 @@ import { CgProfile } from "react-icons/cg";
 import { signOut } from "next-auth/react";
 import Dropdown from "@/components/Dropdown";
 import { useUserStore } from "@/lib/zustand";
+import { MdPayments } from "react-icons/md";
 
 const AdminSidebar = ({
   children,
@@ -108,6 +109,17 @@ const AdminSidebar = ({
                   <FaIdCard />
                 </div>
                 <span className='ms-4'>KYC</span>
+              </Link>
+            </li>
+            <li onClick={() => setShowNav(false)}>
+              <Link
+                href='/admin/pay'
+                className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
+              >
+                <div className='text-2xl'>
+                  <MdPayments />
+                </div>
+                <span className='ms-4'>Payment</span>
               </Link>
             </li>
             <li onClick={() => setShowNav(false)}>
