@@ -77,6 +77,14 @@ const LoginForm = () => {
               />
             </HidedPassword>
           </div>
+          <div className='text-sm font-light text-gray-300'>
+            <a
+              href='/forgot-password'
+              className='font-medium text-primary-600 hover:underline'
+            >
+              Forgot Password?
+            </a>
+          </div>
           <button
             disabled={isLoading}
             type='submit'
@@ -84,7 +92,7 @@ const LoginForm = () => {
           >
             {isLoading ? <SmallLoading /> : "Log In"}
           </button>
-          <p className='text-sm font-light text-gray-300'>
+          <div className='text-sm font-light text-gray-300'>
             Don't have an account?{" "}
             <a
               href='/register'
@@ -92,7 +100,7 @@ const LoginForm = () => {
             >
               Sign up here
             </a>
-          </p>
+          </div>
         </form>
       </div>
     </div>

@@ -23,6 +23,7 @@
     "next-auth": "^4.24.7",
     "next-progress": "^2.3.1",
     "nextjs-toploader": "^1.6.11",
+    "nodemailer": "^6.9.13",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.1",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.30",
+    "@types/nodemailer": "^6.4.14",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
