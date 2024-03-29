@@ -7,7 +7,7 @@ export async function PATCH(request: Request) {
     const { password } = await request.json();
 
     if (!id || !password) {
-      return NextResponse.json({ message: "Data is required" });
+      return NextResponse.json({ message: "User Not Found" });
     }
 
     const user = await prisma.users.update({

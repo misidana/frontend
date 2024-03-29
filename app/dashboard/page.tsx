@@ -82,7 +82,10 @@ const DashboardPage = async () => {
             Latest News
           </h2>
           {AllNews.map((news) => (
-            <div className='flex items-center border border-white/20 gap-4 m-3 rounded-lg p-2'>
+            <div
+              key={news.id}
+              className='flex items-center border border-white/20 gap-4 m-3 rounded-lg p-2'
+            >
               <div className='p-2 rounded-md text-3xl text-white bg-blue-500'>
                 <FaRegNewspaper />
               </div>
@@ -102,7 +105,10 @@ const DashboardPage = async () => {
             Latest Notifications
           </h2>
           {notifications.map((notif) => (
-            <div className='flex items-center border border-white/20 gap-4 m-3 rounded-lg p-2'>
+            <div
+              key={notif.id}
+              className='flex items-center border border-white/20 gap-4 m-3 rounded-lg p-2'
+            >
               <div className='p-2 rounded-md text-3xl text-white bg-blue-500'>
                 <MdOutlineCircleNotifications />
               </div>

@@ -4,13 +4,12 @@ import nodemailer from "nodemailer";
 export async function POST(request: Request) {
   const { link, to } = await request.json();
   const { GOOGLE_SMTP_PASSWORD, GOOGLE_SMTP_EMAIL } = process.env;
-  console.log(link, to);
 
   const transport = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "suruhanjayamasterbinary@gmail.com",
-      pass: "elfb qxhk tnxi shhe",
+      user: GOOGLE_SMTP_EMAIL,
+      pass: GOOGLE_SMTP_PASSWORD,
     },
   });
 
@@ -137,7 +136,7 @@ export async function POST(request: Request) {
               <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                   <td align="center" valign="top" style="padding: 36px 24px;">
-                    <a href="https://www.blogdesire.com" target="_blank" style="display: inline-block;">
+                    <a href="${link}" target="_blank" style="display: inline-block;">
                       <img src="https://res.cloudinary.com/doxxfay9h/image/upload/v1711571375/master-binary/gzius315n1ietdohzjx8.jpg" alt="Logo" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
                     </a>
                   </td>

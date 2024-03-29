@@ -1,5 +1,6 @@
 "use client";
 
+import HidedPassword from "@/components/HidedPassword";
 import { SmallLoading } from "@/components/Loading";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
@@ -8,6 +9,7 @@ import { toast } from "react-toastify";
 
 const ResetPassword = () => {
   const id = useSearchParams().get("user");
+  const [hide, setHide] = useState(false);
   const [err, setErr] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [newPassword, setNewpassword] = useState("");
@@ -15,16 +17,16 @@ const ResetPassword = () => {
   const handleReset = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
-    const { data } = await axios.post("/api/user/update-password" + id, {
+    const { data } = await axios.patch("/api/user/update-password/" + id, {
       password: newPassword,
     });
-    console.log(data);
 
     if (data?.success) {
       toast.success("Password Updated");
       window.location.href = "/login";
     }
     setIsLoading(false);
+    setErr(data?.message);
   };
 
   return (
@@ -51,15 +53,17 @@ const ResetPassword = () => {
                 <label className='block mb-2 text-sm font-medium text-white'>
                   New Password
                 </label>
-                <input
-                  value={newPassword}
-                  onChange={(e) => setNewpassword(e.target.value)}
-                  type='password'
-                  name='identifier'
-                  className='bg-black/30 border focus:outline-none focus:border-red-500 text-white sm:text-sm rounded-lg block w-full p-2.5 focus:p-3 duration-200'
-                  placeholder='Enter Username Or Email'
-                  required
-                />
+                <HidedPassword isHide={hide} onClick={() => setHide(!hide)}>
+                  <input
+                    value={newPassword}
+                    onChange={(e) => setNewpassword(e.target.value)}
+                    type={hide ? "password" : "text"}
+                    name='identifier'
+                    className='bg-black/30 border focus:outline-none focus:border-red-500 text-white sm:text-sm rounded-lg block w-full p-2.5 focus:p-3 duration-200'
+                    placeholder='Enter Username Or Email'
+                    required
+                  />
+                </HidedPassword>
               </div>
 
               <button

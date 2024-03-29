@@ -2,6 +2,7 @@
 import Link from "next/dist/client/link";
 import React, { useEffect, useState } from "react";
 import Dropdown from "./Dropdown";
+import Marquee from "react-fast-marquee";
 
 import { usePathname } from "next/navigation";
 import {
@@ -23,6 +24,16 @@ import {
   Notifications,
 } from "@/app/dashboard/components/MenuSidebar";
 
+type TradeViewItemType = {
+  title: string;
+  price: string;
+  change: string;
+  changePercent: string;
+  image: string[];
+};
+
+interface TradeViewType extends Array<TradeViewItemType> {}
+
 const Sidebar = ({
   children,
   session,
@@ -37,6 +48,22 @@ const Sidebar = ({
   useEffect(() => {
     setUser(session);
   }, []);
+
+  const [tradeView, setTradeView] = useState<TradeViewType>([]);
+
+  useEffect(() => {
+    const getTrade = async () => {
+      const res = await fetch("/api/trade-view");
+      const data = await res.json();
+      console.log(data);
+
+      setTradeView(data?.result);
+    };
+
+    getTrade();
+  }, []);
+
+  console.log(tradeView);
 
   return (
     <>
@@ -196,6 +223,40 @@ const Sidebar = ({
             <IconsNav />
           </div>
         </div>
+        {/* MARQUEE */}
+        <Marquee className='flex bg-[#232A34] p-3'>
+          {tradeView.map((item, index) => (
+            <div
+              key={index}
+              className='flex items-center px-6 border-x border-white/20'
+            >
+              <div className='relative mr-3'>
+                <img
+                  src={item.image[1]}
+                  alt='Suruhanjaya Master Binary'
+                  className='w-[30px] rounded-full border-4 border-[#232A34]'
+                />
+                <div className='absolute bottom-[-40%] left-[-40%]'>
+                  <img
+                    src={item.image[0]}
+                    alt='Suruhanjaya Master Binary'
+                    className='w-[30px] rounded-full border-4 border-[#232A34]'
+                  />
+                </div>
+              </div>
+              <div className='flex gap-3 font-semibold'>
+                <h3 className='text-lg text-white'>{item.title}</h3>
+                <h3 className='text-lg text-white'>{item.price}</h3>
+                <h3 className={`text-lg text-white `}>
+                  {item.change.substring(0, 6)}
+                </h3>
+                <h3 className='text-lg text-white'>
+                  {item.changePercent.split("%")[0] + "%"}
+                </h3>
+              </div>
+            </div>
+          ))}
+        </Marquee>
 
         <div className='flex p-5 m-3 bg-[#1f1f1f] shadow-lg shadow-[#A1A1A1]/15 text-white rounded-lg'>
           <h2 className='text-2xl'>
