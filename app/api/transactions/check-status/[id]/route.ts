@@ -24,6 +24,11 @@ export async function GET(request: Request) {
     if (withdraw) {
       return NextResponse.json({ success: true, result: withdraw });
     }
+
+    return NextResponse.json({
+      success: false,
+      message: "Transaction not found",
+    });
   } catch (error) {
     return NextResponse.json({
       success: false,

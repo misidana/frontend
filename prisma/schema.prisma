@@ -123,10 +123,13 @@ model Profits {
 
 model Trade {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  market    String
+  username  String
   amount    Int
-  reteStake String
+  rateStake String
   rateEnd   String
-  status    Boolean  @default(false)
+  time      String
+  category  String
+  market    String   @default("BTC/USD")
+  status    Boolean  @default(true)
   date      DateTime @default(now())
 }

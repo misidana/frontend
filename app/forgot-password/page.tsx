@@ -3,14 +3,13 @@
 import { SmallLoading } from "@/components/Loading";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const [err, setErr] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [origin, setOrigin] = useState("");
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<any>({});
 
   useEffect(() => {
     const loc = location.origin;
@@ -25,24 +24,31 @@ const ForgotPassword = () => {
     const { data } = await axios.get(
       "/api/user/findacc-by-email/" + identifier
     );
-    setIsLoading(false);
     if (data?.success) {
-      toast.success("Please check your email");
-      sendLink(data?.result?.email, data?.result?.id);
+      setUser(data?.result);
       setIsSending(true);
+      setIsLoading(false);
+      setErr(null);
       return;
     } else {
       setErr(data?.message);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
-  const sendLink = async (email: string, id: string) => {
+  const [isSent, setIsSent] = useState(false);
+
+  const sendLink = async () => {
+    setIsSending(false);
+    setIsLoading(true);
     const { data } = await axios.post("/api/forget-password", {
-      link: `${origin}/reset-password?user=${id}`,
-      to: email,
+      link: `${origin}/reset-password?user=${user?.id}`,
+      to: user?.email,
     });
-    console.log(data);
+    if (data?.status) {
+      setIsSent(true);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -51,7 +57,20 @@ const ForgotPassword = () => {
         <div className='w-full bg-blue-600/70 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0'>
           {isSending && (
             <div className='p-2 rounded-lg bg-green-500 text-white'>
-              Check Your Email
+              Account found. Click{" "}
+              <button
+                onClick={sendLink}
+                className='underline bg-blue-500 p-2 rounded text-sm'
+              >
+                Send
+              </button>{" "}
+              a password reset link
+            </div>
+          )}
+          {isSent && (
+            <div className='p-2 rounded-lg bg-green-500 text-white'>
+              link sent to your email, check now, If it's not in your inbox,
+              check your spam messages.
             </div>
           )}
           {err && (

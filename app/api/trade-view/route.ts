@@ -19,6 +19,8 @@ export async function GET() {
     const table = $("table");
     const rows = table.find("tr");
 
+    const US = "https://s3-symbol-logo.tradingview.com/country/US.svg";
+
     rows.each(function (i, row) {
       const cells = $(row).find("a");
       const td = $(row).find("td");
@@ -26,13 +28,21 @@ export async function GET() {
       const price = $(td[1]).text();
       const changePercent = $(td[2]).text();
       const change = $(td[3]).text();
-      const image = $(cells[0]).find("img").attr("src");
+      const image = $(td[0]).find("img").attr("src");
       data.push({
         title,
         price,
         changePercent,
         change,
-        image: ["https://s3-symbol-logo.tradingview.com/country/US.svg", image],
+        image: [
+          US,
+          image === US
+            ? `https://s3-symbol-logo.tradingview.com/country/${title.substring(
+                0,
+                2
+              )}.svg`
+            : image,
+        ],
       });
     });
 

@@ -5,6 +5,7 @@ import Loading from "@/components/Loading";
 import { useUserStore } from "@/lib/zustand";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -112,6 +113,27 @@ export const Data = () => {
           Update
         </button>
       </form>
+      <button
+        onClick={() => signOut({ callbackUrl: "/login" })}
+        className='flex w-full mt-10 items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
+      >
+        <svg
+          className='flex-shrink-0 w-5 h-5 transition duration-75 transform rotate-180'
+          aria-hidden='true'
+          xmlns='http://www.w3.org/2000/svg'
+          fill='none'
+          viewBox='0 0 18 16'
+        >
+          <path
+            stroke='currentColor'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='2'
+            d='M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3'
+          />
+        </svg>
+        <span className='ms-5 whitespace-nowrap'>Log Out</span>
+      </button>
     </div>
   );
 };

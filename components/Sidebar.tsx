@@ -10,6 +10,7 @@ import {
   FaIdCard,
   FaMoneyBillTrendUp,
   FaMoneyCheckDollar,
+  FaRegChartBar,
   FaUser,
 } from "react-icons/fa6";
 import { MdNotificationsActive } from "react-icons/md";
@@ -22,6 +23,7 @@ import {
   Funds,
   Menus,
   Notifications,
+  Traded,
 } from "@/app/dashboard/components/MenuSidebar";
 
 type TradeViewItemType = {
@@ -55,15 +57,11 @@ const Sidebar = ({
     const getTrade = async () => {
       const res = await fetch("/api/trade-view");
       const data = await res.json();
-      console.log(data);
-
-      setTradeView(data?.result);
+      setTradeView(data?.result?.slice(2));
     };
 
     getTrade();
   }, []);
-
-  console.log(tradeView);
 
   return (
     <>
@@ -71,18 +69,19 @@ const Sidebar = ({
         id='default-sidebar'
         className={
           showNav
-            ? "fixed top-0 left-0 z-40 w-64 h-screen transition-transform translate-x-0 overflow-y-scroll"
+            ? "fixed top-0 left-0 z-40 w-64 h-screen transition-transform translate-x-0"
             : "fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0"
         }
       >
         <div
-          className={`h-full px-3 py-4 overflow-y-auto overflow-x-hidden bg-[#232A34] shadow-xl`}
+          className={`h-full px-3 pb-4 overflow-y-auto overflow-x-hidden bg-[#232A34] shadow-xl`}
         >
-          <img src='/logo.png' className='w-[80px] mx-auto' alt='' />
+          <img
+            src='/logo.png'
+            className='w-[100px] mx-auto object-contain'
+            alt=''
+          />
           <div className='flex justify-center items-center flex-col bg-[#333c49] p-5 rounded-lg mb-6'>
-            <h2 className='text-white mb-4 text-center'>
-              Welcome {pathName.includes("admin") ? "Admin" : "User"}
-            </h2>
             <div className='p-2 rounded-full text-white text-xl bg-yellow-500'>
               <FaUser />
             </div>
@@ -141,11 +140,17 @@ const Sidebar = ({
                 className='flex items-center p-2 text-white/70 hover:text-white rounded-lg group hover:bg-white/10'
               >
                 <div className='text-2xl'>
-                  <FaChartLine />
+                  <FaRegChartBar />
                 </div>
                 <span className='ms-4'>Invesment</span>
               </Link>
             </li>
+            <Dropdown
+              Menus={Traded}
+              Title='Tradee'
+              onPress={() => setShowNav(false)}
+              icon={<FaChartLine />}
+            />
             <li onClick={() => setShowNav(false)}>
               <Link
                 href='/dashboard/refferal'
@@ -226,7 +231,9 @@ const Sidebar = ({
         {/* MARQUEE */}
         <Marquee className='flex bg-[#232A34] p-3'>
           {tradeView.map((item, index) => (
-            <div
+            <a
+              href={`https://in.tradingview.com/symbols/${item.title}`}
+              target='_blank'
               key={index}
               className='flex items-center px-6 border-x border-white/20'
             >
@@ -247,23 +254,33 @@ const Sidebar = ({
               <div className='flex gap-3 font-semibold'>
                 <h3 className='text-lg text-white'>{item.title}</h3>
                 <h3 className='text-lg text-white'>{item.price}</h3>
-                <h3 className={`text-lg text-white `}>
+                <h3
+                  className={`text-lg ${
+                    item.change.includes("−")
+                      ? "text-red-500"
+                      : "text-[#00CC99]"
+                  }`}
+                >
                   {item.change.substring(0, 6)}
                 </h3>
-                <h3 className='text-lg text-white'>
+                <h3
+                  className={`text-lg ${
+                    item.change.includes("−")
+                      ? "text-red-500"
+                      : "text-[#00CC99]"
+                  }`}
+                >
                   {item.changePercent.split("%")[0] + "%"}
                 </h3>
               </div>
-            </div>
+            </a>
           ))}
         </Marquee>
-
         <div className='flex p-5 m-3 bg-[#1f1f1f] shadow-lg shadow-[#A1A1A1]/15 text-white rounded-lg'>
           <h2 className='text-2xl'>
             {pathName.split("/").pop()?.toUpperCase()}
           </h2>
         </div>
-
         <div className='p-3'>{children}</div>
       </div>
       {showNav && (
